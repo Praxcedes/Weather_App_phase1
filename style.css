@@ -48,5 +48,9 @@ body.dark {
     padding: 0.5rem;
     transition: color 0.3s ease;
 }
+.theme-toggle.light {
+    color: #1a73e8;
+}
+
 
 
