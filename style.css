@@ -154,6 +154,32 @@ weather-card.dark {
     background-color: #2d3748;
     color: #e2e8f0;
 }
+weather-card h2 {
+    margin-bottom: 1rem;
+}
+
+.weather-icon {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 1rem;
+}
+
+.current-weather, .climate-info {
+    margin: 1rem 0;
+    padding: 1rem;
+    background-color: white;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.current-weather.dark, .climate-info.dark {
+    background-color: #374151;
+    color: #e2e8f0;
+}
+
+.current-weather {
+    border-left: 4px solid #1a73e8;
+}
 
 
 
