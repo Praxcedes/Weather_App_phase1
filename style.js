@@ -164,10 +164,28 @@ function createWeatherCard(cityInfo, cityData) {
     const currentWeather = createCurrentWeatherSection(cityData);
     const climateInfo = createClimateInfoSection(cityInfo);
 
+    // Buttons: Edit & Delete
+    const buttonsContainer = document.createElement('div');
+    buttonsContainer.className = 'card-buttons';
+
+    const editBtn = document.createElement('button');
+    editBtn.textContent = 'Edit';
+    editBtn.className = 'edit-btn';
+    editBtn.addEventListener('click', () => editWeather(cityInfo.id));
+
+    const deleteBtn = document.createElement('button');
+    deleteBtn.textContent = 'Delete';
+    deleteBtn.className = 'delete-btn';
+    deleteBtn.addEventListener('click', () => card.remove());
+
+    buttonsContainer.appendChild(editBtn);
+    buttonsContainer.appendChild(deleteBtn);
+
     card.appendChild(icon);
     card.appendChild(cityName);
     card.appendChild(currentWeather);
     card.appendChild(climateInfo);
+    card.appendChild(buttonsContainer);
 
     return card;
 }
@@ -219,6 +237,20 @@ function createClimateInfoSection(cityInfo) {
     section.appendChild(desc);
 
     return section;
+}
+
+// Edit functionality
+function editWeather(cityId) {
+    const cityData = weatherData.weather[cityId];
+    const newTempC = prompt('Enter new temperature (°C):', cityData.tempC);
+    const newDesc = prompt('Enter new description:', cityData.description);
+
+    if (newTempC !== null && newDesc !== null) {
+        cityData.tempC = newTempC;
+        cityData.description = newDesc;
+        cityData.tempF = (newTempC * 9) / 5 + 32; // Update Fahrenheit
+        displayWeather(weatherData.cities[cityId]); // Re-render updated card
+    }
 }
 
 // Helper functions
