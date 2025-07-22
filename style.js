@@ -73,5 +73,27 @@ function toggleTheme() {
         document.body.classList.remove('theme-transition');
     }, 300);
 }
+function updateDarkElements() {
+    const darkElements = document.querySelectorAll('.dark');
+    darkElements.forEach(el => el.classList.toggle('dark'));
+}
+
+// Search functionality
+function searchWeather() {
+    const cityName = cityInput.value.trim();
+    if (!cityName) {
+        showError('Please enter a city name');
+        return;
+    }
+
+    const cityInfo = findCity(cityName);
+    if (!cityInfo) {
+        showError('City not found');
+        return;
+    }
+
+    displayWeather(cityInfo);
+    cityInput.value = '';
+}
 
 
