@@ -95,5 +95,27 @@ function searchWeather() {
     displayWeather(cityInfo);
     cityInput.value = '';
 }
+function findCity(name) {
+    return Object.values(weatherData.cities)
+        .find(city => city.name.toLowerCase() === name.toLowerCase());
+}
+
+// Suggestions functionality
+function showSuggestions() {
+    const cityName = cityInput.value.trim();
+    if (!cityName) {
+        hideSuggestions();
+        return;
+    }
+
+    const matchingCities = Object.values(weatherData.cities)
+        .filter(city => city.name.toLowerCase().includes(cityName.toLowerCase()))
+        .slice(0, 5);
+
+    if (matchingCities.length === 0) {
+        hideSuggestions();
+        return;
+    }
+}
 
 
