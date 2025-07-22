@@ -29,6 +29,7 @@ function initializeApp() {
             showError('Error loading weather data');
         });
 }
+
 // Fetch weather data
 async function fetchWeatherData() {
     try {
@@ -41,6 +42,7 @@ async function fetchWeatherData() {
         throw error;
     }
 }
+
 // Theme functionality
 function initializeTheme() {
     const savedTheme = localStorage.getItem('theme') || 'light';
@@ -51,6 +53,7 @@ function initializeTheme() {
         updateDarkElements();
     }
 }
+
 function toggleTheme() {
     const isDark = document.body.classList.toggle('dark');
     
@@ -73,6 +76,7 @@ function toggleTheme() {
         document.body.classList.remove('theme-transition');
     }, 300);
 }
+
 function updateDarkElements() {
     const darkElements = document.querySelectorAll('.dark');
     darkElements.forEach(el => el.classList.toggle('dark'));
@@ -95,6 +99,7 @@ function searchWeather() {
     displayWeather(cityInfo);
     cityInput.value = '';
 }
+
 function findCity(name) {
     return Object.values(weatherData.cities)
         .find(city => city.name.toLowerCase() === name.toLowerCase());
@@ -116,6 +121,4 @@ function showSuggestions() {
         hideSuggestions();
         return;
     }
-}
-
-
+    
