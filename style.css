@@ -51,6 +51,10 @@ body.dark {
 .theme-toggle.light {
     color: #1a73e8;
 }
+theme-toggle.dark {
+    color: #4299e1;
+}
+
 
 
 
