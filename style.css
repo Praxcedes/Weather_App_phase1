@@ -108,6 +108,33 @@ button.dark:hover {
 button:hover {
     background-color: #1557b0;
 }
+.suggestions {
+    position: absolute;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 5px;
+    width: 70%;
+    margin-left: 15%;
+    z-index: 100;
+    display: none;
+    transition: background-color 0.3s ease;
+}
+
+.suggestions.dark {
+    background-color: #2d3748;
+    border-color: #4299e1;
+}
+
+.suggestions.show {
+    display: block;
+}
+
+.suggestions ul {
+    list-style: none;
+    padding: 0.5rem;
+}
+
+
 
 
 
