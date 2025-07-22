@@ -57,6 +57,13 @@ theme-toggle.dark {
 .theme-toggle:hover {
     color: #1557b0;
 }
+search-container {
+    margin: 2rem 0;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
 
 
 
