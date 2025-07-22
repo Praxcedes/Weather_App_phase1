@@ -77,6 +77,12 @@ input.dark {
     color: #e2e8f0;
     border-color: #4299e1;
 }
+input.dark {
+    background-color: #374151;
+    color: #e2e8f0;
+    border-color: #4299e1;
+}
+
 
 
 
