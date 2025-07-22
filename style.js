@@ -5,3 +5,7 @@ const weatherInfo = document.getElementById('weatherInfo');
 const suggestionsContainer = document.getElementById('suggestions');
 const themeToggle = document.getElementById('themeToggle');
 
+// State
+let weatherData = null;
+let currentCity = null;
+
