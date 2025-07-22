@@ -29,4 +29,17 @@ function initializeApp() {
             showError('Error loading weather data');
         });
 }
+// Fetch weather data
+async function fetchWeatherData() {
+    try {
+        const response = await fetch('db.json');
+        if (!response.ok) {
+            throw new Error('Failed to fetch weather data');
+        }
+        return await response.json();
+    } catch (error) {
+        throw error;
+    }
+}
+
 
