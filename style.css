@@ -105,6 +105,10 @@ button.dark {
 button.dark:hover {
     background-color: #3182ce;
 }
+button:hover {
+    background-color: #1557b0;
+}
+
 
 
 
