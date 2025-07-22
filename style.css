@@ -99,6 +99,10 @@ button {
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
+button.dark {
+    background-color: #4299e1;
+}
+
 
 
 
