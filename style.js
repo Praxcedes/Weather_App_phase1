@@ -41,5 +41,15 @@ async function fetchWeatherData() {
         throw error;
     }
 }
+// Theme functionality
+function initializeTheme() {
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark');
+        themeToggle.textContent = '☀';
+        themeToggle.classList.add('dark');
+        updateDarkElements();
+    }
+}
 
 
