@@ -54,6 +54,9 @@ body.dark {
 theme-toggle.dark {
     color: #4299e1;
 }
+.theme-toggle:hover {
+    color: #1557b0;
+}
 
 
 
