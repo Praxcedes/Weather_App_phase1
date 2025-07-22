@@ -89,6 +89,17 @@ input:focus {
     outline: none;
     border-color: #1a73e8;
 }
+button {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    background-color: #1a73e8;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
 
 
 
