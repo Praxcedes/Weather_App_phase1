@@ -16,3 +16,17 @@ searchBtn.addEventListener('click', searchWeather);
 cityInput.addEventListener('input', debounce(showSuggestions, 500));
 document.addEventListener('click', hideSuggestions);
 
+// Initialize app
+function initializeApp() {
+    // Load weather data
+    fetchWeatherData()
+        .then(data => {
+            weatherData = data;
+            initializeTheme();
+        })
+        .catch(error => {
+            console.error('Error loading weather data:', error);
+            showError('Error loading weather data');
+        });
+}
+
