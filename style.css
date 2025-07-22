@@ -11,3 +11,6 @@ body {
     justify-content: center;
     align-items: center;
 }
+.theme-transition * {
+    transition: all 0.3s ease;
+}
