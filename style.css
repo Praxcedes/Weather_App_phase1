@@ -180,7 +180,18 @@ weather-card h2 {
 .current-weather {
     border-left: 4px solid #1a73e8;
 }
-
+.climate-info {
+    border-left: 4px solid #48bb78;
+}
+@media (max-width: 480px) {
+    .search-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    button{
+        width: 100%
+    }
+}
 
 
 
