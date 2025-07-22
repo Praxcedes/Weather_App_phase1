@@ -14,3 +14,7 @@ body {
 .theme-transition * {
     transition: all 0.3s ease;
 }
+body.light{
+    background-color: #f0f0f0;
+    color: #333;
+}
