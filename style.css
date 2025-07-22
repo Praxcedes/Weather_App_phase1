@@ -82,6 +82,10 @@ input.dark {
     color: #e2e8f0;
     border-color: #4299e1;
 }
+input.dark:focus {
+    border-color: #3182ce;
+}
+
 
 
 
