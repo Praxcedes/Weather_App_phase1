@@ -9,3 +9,10 @@ const themeToggle = document.getElementById('themeToggle');
 let weatherData = null;
 let currentCity = null;
 
+// Event Listeners
+document.addEventListener('DOMContentLoaded', initializeApp);
+themeToggle.addEventListener('click', toggleTheme);
+searchBtn.addEventListener('click', searchWeather);
+cityInput.addEventListener('input', debounce(showSuggestions, 500));
+document.addEventListener('click', hideSuggestions);
+
