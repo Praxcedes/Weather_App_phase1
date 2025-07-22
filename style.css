@@ -133,6 +133,24 @@ button:hover {
     list-style: none;
     padding: 0.5rem;
 }
+.suggestions li {
+    padding: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.suggestions li:hover {
+    background-color: #f7fafc;
+}
+
+.weather-card {
+    padding: 1.5rem;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    margin-top: 2rem;
+    transition: background-color 0.3s ease;
+}
+
 
 
 
