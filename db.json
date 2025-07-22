@@ -1,0 +1,126 @@
+{
+  "cities": {
+    "1": {
+      "id": "1",
+      "name": "Nairobi",
+      "country": "KE",
+      "coordinates": {
+        "lat": -1.2864,
+        "lon": 36.8175
+      },
+      "climate": {
+        "type": "Tropical savanna climate",
+        "rainy_season": "March to May and October to December",
+        "average_temp": "18°C",
+        "description": "Nairobi has a tropical savanna climate with two rainy seasons and moderate temperatures year-round. The city experiences warm and relatively dry weather throughout the year, with temperatures rarely dropping below 10°C or exceeding 27°C."
+      }
+    },
+    "2": {
+      "id": "2",
+      "name": "Mombasa",
+      "country": "KE",
+      "coordinates": {
+        "lat": -4.0468,
+        "lon": 39.6637
+      },
+      "climate": {
+        "type": "Tropical monsoon climate",
+        "rainy_season": "April to May and October to November",
+        "average_temp": "27°C",
+        "description": "Mombasa has a tropical monsoon climate with high humidity and warm temperatures throughout the year. The city experiences heavy rainfall during the rainy seasons, while the rest of the year is relatively dry and warm."
+      }
+    },
+    "3": {
+      "id": "3",
+      "name": "Kisumu",
+      "country": "KE",
+      "coordinates": {
+        "lat": -0.0833,
+        "lon": 34.7667
+      },
+      "climate": {
+        "type": "Tropical savanna climate",
+        "rainy_season": "March to May and October to November",
+        "average_temp": "24°C",
+        "description": "Kisumu has a tropical savanna climate with two rainy seasons and moderate temperatures year-round. The city experiences warm and relatively dry weather throughout the year, with temperatures rarely dropping below 18°C or exceeding 30°C."
+      }
+    },
+    "4": {
+      "id": "4",
+      "name": "Eldoret",
+      "country": "KE",
+      "coordinates": {
+        "lat": 0.5000,
+        "lon": 35.2833
+      },
+      "climate": {
+        "type": "Tropical savanna climate",
+        "rainy_season": "March to May and October to November",
+        "average_temp": "19°C",
+        "description": "Eldoret has a tropical savanna climate with two rainy seasons and moderate temperatures year-round. The city experiences warm and relatively dry weather throughout the year, with temperatures rarely dropping below 12°C or exceeding 25°C."
+      }
+    },
+    "5": {
+      "id": "5",
+      "name": "Nakuru",
+      "country": "KE",
+      "coordinates": {
+        "lat": -0.2833,
+        "lon": 36.0667
+      },
+      "climate": {
+        "type": "Tropical savanna climate",
+        "rainy_season": "March to May and October to November",
+        "average_temp": "20°C",
+        "description": "Nakuru has a tropical savanna climate with two rainy seasons and moderate temperatures year-round. The city experiences warm and relatively dry weather throughout the year, with temperatures rarely dropping below 14°C or exceeding 26°C."
+      }
+    }
+  },
+  "weather": {
+    "1": {
+      "tempC": 22,
+      "tempF": 71.6,
+      "description": "Partly cloudy",
+      "humidity": 65,
+      "windSpeed": 5.1,
+      "icon": "https://openweathermap.org/img/wn/02d@2x.png",
+      "lastUpdated": "2025-07-22T21:58:00+03:00"
+    },
+    "2": {
+      "tempC": 28,
+      "tempF": 82.4,
+      "description": "Sunny",
+      "humidity": 75,
+      "windSpeed": 4.5,
+      "icon": "https://openweathermap.org/img/wn/01d@2x.png",
+      "lastUpdated": "2025-07-22T21:58:00+03:00"
+    },
+    "3": {
+      "tempC": 25,
+      "tempF": 77,
+      "description": "Cloudy",
+      "humidity": 80,
+      "windSpeed": 3.8,
+      "icon": "https://openweathermap.org/img/wn/04d@2x.png",
+      "lastUpdated": "2025-07-22T21:58:00+03:00"
+    },
+    "4": {
+      "tempC": 20,
+      "tempF": 68,
+      "description": "Mostly cloudy",
+      "humidity": 70,
+      "windSpeed": 4.2,
+      "icon": "https://openweathermap.org/img/wn/04d@2x.png",
+      "lastUpdated": "2025-07-22T21:58:00+03:00"
+    },
+    "5": {
+      "tempC": 21,
+      "tempF": 69.8,
+      "description": "Partly cloudy",
+      "humidity": 68,
+      "windSpeed": 4.8,
+      "icon": "https://openweathermap.org/img/wn/02d@2x.png",
+      "lastUpdated": "2025-07-22T21:58:00+03:00"
+    }
+  }
+}
