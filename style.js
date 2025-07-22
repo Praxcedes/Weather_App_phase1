@@ -51,5 +51,27 @@ function initializeTheme() {
         updateDarkElements();
     }
 }
+function toggleTheme() {
+    const isDark = document.body.classList.toggle('dark');
+    
+    // Update theme toggle button
+    themeToggle.textContent = isDark ? '☀' : '🌙';
+    themeToggle.classList.toggle('dark');
+    
+    // Update all elements with dark class
+    updateDarkElements();
+    
+    // Save theme preference
+    const currentTheme = isDark ? 'dark' : 'light';
+    localStorage.setItem('theme', currentTheme);
+    
+    // Add smooth transition class
+    document.body.classList.add('theme-transition');
+    
+    // Remove transition class after animation
+    setTimeout(() => {
+        document.body.classList.remove('theme-transition');
+    }, 300);
+}
 
 
