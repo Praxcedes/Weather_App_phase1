@@ -14,11 +14,15 @@ document.addEventListener('DOMContentLoaded', initializeApp);
 themeToggle.addEventListener('click', toggleTheme);
 searchBtn.addEventListener('click', searchWeather);
 cityInput.addEventListener('input', debounce(showSuggestions, 500));
-document.addEventListener('click', hideSuggestions);
+document.addEventListener('click', (e) => {
+    // Prevent closing if click is inside suggestions
+    if (!suggestionsContainer.contains(e.target) && e.target !== cityInput) {
+        hideSuggestions();
+    }
+});
 
 // Initialize app
 function initializeApp() {
-    // Load weather data
     fetchWeatherData()
         .then(data => {
             weatherData = data;
@@ -56,22 +60,13 @@ function initializeTheme() {
 
 function toggleTheme() {
     const isDark = document.body.classList.toggle('dark');
-    
-    // Update theme toggle button
     themeToggle.textContent = isDark ? '☀' : '🌙';
     themeToggle.classList.toggle('dark');
-    
-    // Update all elements with dark class
     updateDarkElements();
-    
-    // Save theme preference
-    const currentTheme = isDark ? 'dark' : 'light';
-    localStorage.setItem('theme', currentTheme);
-    
-    // Add smooth transition class
+
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+
     document.body.classList.add('theme-transition');
-    
-    // Remove transition class after animation
     setTimeout(() => {
         document.body.classList.remove('theme-transition');
     }, 300);
@@ -98,6 +93,7 @@ function searchWeather() {
 
     displayWeather(cityInfo);
     cityInput.value = '';
+    hideSuggestions();
 }
 
 function findCity(name) {
@@ -121,4 +117,120 @@ function showSuggestions() {
         hideSuggestions();
         return;
     }
-    
+
+    suggestionsContainer.innerHTML = '';
+    matchingCities.forEach(city => {
+        const li = document.createElement('li');
+        li.textContent = `${city.name}, ${city.country}`;
+        li.addEventListener('click', () => {
+            cityInput.value = city.name;
+            searchWeather();
+        });
+        suggestionsContainer.appendChild(li);
+    });
+
+    suggestionsContainer.classList.add('show');
+}
+
+function hideSuggestions() {
+    suggestionsContainer.classList.remove('show');
+}
+
+// Display weather
+function displayWeather(cityInfo) {
+    const cityData = weatherData.weather[cityInfo.id];
+    if (!cityData) {
+        showError('Weather data not available for this city');
+        return;
+    }
+
+    const weatherCard = createWeatherCard(cityInfo, cityData);
+    weatherInfo.innerHTML = '';
+    weatherInfo.appendChild(weatherCard);
+}
+
+function createWeatherCard(cityInfo, cityData) {
+    const card = document.createElement('div');
+    card.className = 'weather-card';
+
+    const icon = document.createElement('img');
+    icon.src = cityData.icon;
+    icon.alt = cityData.description;
+    icon.className = 'weather-icon';
+
+    const cityName = document.createElement('h2');
+    cityName.textContent = `Weather in ${cityInfo.name}`;
+
+    const currentWeather = createCurrentWeatherSection(cityData);
+    const climateInfo = createClimateInfoSection(cityInfo);
+
+    card.appendChild(icon);
+    card.appendChild(cityName);
+    card.appendChild(currentWeather);
+    card.appendChild(climateInfo);
+
+    return card;
+}
+
+function createCurrentWeatherSection(data) {
+    const section = document.createElement('div');
+    section.className = 'current-weather';
+
+    const temp = document.createElement('p');
+    temp.textContent = `Temperature: ${data.tempC}°C (${data.tempF}°F)`;
+
+    const desc = document.createElement('p');
+    desc.textContent = `Description: ${data.description}`;
+
+    const humidity = document.createElement('p');
+    humidity.textContent = `Humidity: ${data.humidity}%`;
+
+    const wind = document.createElement('p');
+    wind.textContent = `Wind Speed: ${data.windSpeed} m/s`;
+
+    section.appendChild(temp);
+    section.appendChild(desc);
+    section.appendChild(humidity);
+    section.appendChild(wind);
+
+    return section;
+}
+
+function createClimateInfoSection(cityInfo) {
+    const section = document.createElement('div');
+    section.className = 'climate-info';
+
+    const type = document.createElement('p');
+    type.textContent = `Climate Type: ${cityInfo.climate.type}`;
+
+    const rainy = document.createElement('p');
+    rainy.textContent = `Rainy Seasons: ${cityInfo.climate.rainy_season}`;
+
+    const avgTemp = document.createElement('p');
+    avgTemp.textContent = `Average Temperature: ${cityInfo.climate.average_temp}`;
+
+    const desc = document.createElement('p');
+    desc.textContent = cityInfo.climate.description;
+    desc.className = 'climate-description';
+
+    section.appendChild(type);
+    section.appendChild(rainy);
+    section.appendChild(avgTemp);
+    section.appendChild(desc);
+
+    return section;
+}
+
+// Helper functions
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func(...args), wait);
+    };
+}
+
+function showError(message) {
+    console.error(message);
+    alert(message);
+}
