@@ -5,6 +5,9 @@ const weatherInfo = document.getElementById('weatherInfo');
 const suggestionsContainer = document.getElementById('suggestions');
 const themeToggle = document.getElementById('themeToggle');
 
+// Backend API URL (Render)
+const API_URL = 'https://app-json-server-jj04.onrender.com';
+
 // State
 let weatherData = null;
 let currentCity = null;
@@ -15,7 +18,6 @@ themeToggle.addEventListener('click', toggleTheme);
 searchBtn.addEventListener('click', searchWeather);
 cityInput.addEventListener('input', debounce(showSuggestions, 500));
 document.addEventListener('click', (e) => {
-    // Prevent closing if click is inside suggestions
     if (!suggestionsContainer.contains(e.target) && e.target !== cityInput) {
         hideSuggestions();
     }
@@ -34,10 +36,10 @@ function initializeApp() {
         });
 }
 
-// Fetch weather data
+// Fetch weather data from Render API
 async function fetchWeatherData() {
     try {
-        const response = await fetch('https://app-json-server-jj04.onrender/weather/cities.com');
+        const response = await fetch(`${API_URL}/weather`);
         if (!response.ok) {
             throw new Error('Failed to fetch weather data');
         }
@@ -97,7 +99,7 @@ function searchWeather() {
 }
 
 function findCity(name) {
-    return Object.values(weatherData.cities)
+    return Object.values(weatherData)
         .find(city => city.name.toLowerCase() === name.toLowerCase());
 }
 
@@ -109,7 +111,7 @@ function showSuggestions() {
         return;
     }
 
-    const matchingCities = Object.values(weatherData.cities)
+    const matchingCities = Object.values(weatherData)
         .filter(city => city.name.toLowerCase().includes(cityName.toLowerCase()))
         .slice(0, 5);
 
@@ -138,30 +140,24 @@ function hideSuggestions() {
 
 // Display weather
 function displayWeather(cityInfo) {
-    const cityData = weatherData.weather[cityInfo.id];
-    if (!cityData) {
-        showError('Weather data not available for this city');
-        return;
-    }
-
-    const weatherCard = createWeatherCard(cityInfo, cityData);
+    const weatherCard = createWeatherCard(cityInfo);
     weatherInfo.innerHTML = '';
     weatherInfo.appendChild(weatherCard);
 }
 
-function createWeatherCard(cityInfo, cityData) {
+function createWeatherCard(cityInfo) {
     const card = document.createElement('div');
     card.className = 'weather-card';
 
     const icon = document.createElement('img');
-    icon.src = cityData.icon;
-    icon.alt = cityData.description;
+    icon.src = cityInfo.icon;
+    icon.alt = cityInfo.description;
     icon.className = 'weather-icon';
 
     const cityName = document.createElement('h2');
     cityName.textContent = `Weather in ${cityInfo.name}`;
 
-    const currentWeather = createCurrentWeatherSection(cityData);
+    const currentWeather = createCurrentWeatherSection(cityInfo);
     const climateInfo = createClimateInfoSection(cityInfo);
 
     // Buttons: Edit & Delete
@@ -176,7 +172,7 @@ function createWeatherCard(cityInfo, cityData) {
     const deleteBtn = document.createElement('button');
     deleteBtn.textContent = 'Delete';
     deleteBtn.className = 'delete-btn';
-    deleteBtn.addEventListener('click', () => card.remove());
+    deleteBtn.addEventListener('click', () => deleteWeather(cityInfo.id, card));
 
     buttonsContainer.appendChild(editBtn);
     buttonsContainer.appendChild(deleteBtn);
@@ -240,16 +236,53 @@ function createClimateInfoSection(cityInfo) {
 }
 
 // Edit functionality
-function editWeather(cityId) {
-    const cityData = weatherData.weather[cityId];
+async function editWeather(cityId) {
+    const cityData = weatherData.find(city => city.id === cityId);
     const newTempC = prompt('Enter new temperature (°C):', cityData.tempC);
     const newDesc = prompt('Enter new description:', cityData.description);
 
     if (newTempC !== null && newDesc !== null) {
-        cityData.tempC = newTempC;
-        cityData.description = newDesc;
-        cityData.tempF = (newTempC * 9) / 5 + 32; // Update Fahrenheit
-        displayWeather(weatherData.cities[cityId]); // Re-render updated card
+        const updatedData = {
+            ...cityData,
+            tempC: parseFloat(newTempC),
+            tempF: (newTempC * 9) / 5 + 32,
+            description: newDesc
+        };
+
+        try {
+            const response = await fetch(`${API_URL}/weather/${cityId}`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(updatedData)
+            });
+
+            if (!response.ok) throw new Error('Failed to update data on server');
+
+            weatherData = weatherData.map(city => city.id === cityId ? updatedData : city);
+            displayWeather(updatedData);
+        } catch (error) {
+            console.error('Error updating data:', error);
+            alert('Failed to update city data');
+        }
+    }
+}
+
+// Delete functionality
+async function deleteWeather(cityId, cardElement) {
+    if (!confirm('Are you sure you want to delete this city?')) return;
+
+    try {
+        const response = await fetch(`${API_URL}/weather/${cityId}`, {
+            method: 'DELETE'
+        });
+
+        if (!response.ok) throw new Error('Failed to delete data on server');
+
+        cardElement.remove();
+        weatherData = weatherData.filter(city => city.id !== cityId);
+    } catch (error) {
+        console.error('Error deleting data:', error);
+        alert('Failed to delete city');
     }
 }
 
