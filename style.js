@@ -196,7 +196,29 @@ function createWeatherCard(city) {
             <p>${city.climate.type}</p>
             <p>${city.climate.description}</p>
         </div>
+        <div class="card-buttons">
+            <button class="edit-btn">Edit</button>
+            <button class="delete-btn">Delete</button>
+        </div>
     `;
+
+    // Edit button functionality
+    card.querySelector('.edit-btn').addEventListener('click', () => {
+        const newDesc = prompt('Enter new description:', city.description);
+        if (newDesc) {
+            city.description = newDesc;
+            displayWeather(city);
+        }
+    });
+
+    // Delete button functionality
+    card.querySelector('.delete-btn').addEventListener('click', () => {
+        if (confirm(`Delete ${city.name}?`)) {
+            weatherData = weatherData.filter(c => c.id !== city.id);
+            weatherInfo.innerHTML = '';
+        }
+    });
+
     return card;
 }
 
