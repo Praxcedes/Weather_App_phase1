@@ -37,7 +37,7 @@ function initializeApp() {
 // Fetch weather data
 async function fetchWeatherData() {
     try {
-        const response = await fetch('db.json');
+        const response = await fetch('https://app-json-server-jj04.onrender/weather/cities.com');
         if (!response.ok) {
             throw new Error('Failed to fetch weather data');
         }
